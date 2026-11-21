@@ -1,0 +1,11 @@
+#!/bin/sh
+# Pre-commit gate: formatting and lint warnings.
+# CI reports lint warnings but does not fail on them; this hook enforces them.
+# Installed by `npm install` / `npm ci` (the "prepare" script sets core.hooksPath).
+set -e
+
+echo "pre-commit: format check"
+npx nx format:check --base=HEAD
+
+echo "pre-commit: lint, warnings count as errors"
+npx nx affected -t lint --base=HEAD -- --max-warnings=0

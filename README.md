@@ -4,7 +4,7 @@ A storefront and administration platform for a fictional crocheting and knitting
 
 ## Current state
 
-Repository foundation (phase 0): an Nx monorepo with a placeholder Next.js storefront. Continuous integration and deployment are not set up yet.
+Repository foundation (phase 0): an Nx monorepo with a placeholder Next.js storefront. A GitHub Actions workflow and a pre-commit hook exist; deployment is not set up yet.
 
 ## Requirements
 
@@ -12,7 +12,7 @@ Repository foundation (phase 0): an Nx monorepo with a placeholder Next.js store
 
 ## Commands
 
-Verified locally. CI does not exist yet.
+Verified locally. The GitHub Actions workflow has not run on GitHub yet.
 
 | Task | Command |
 |---|---|
@@ -24,6 +24,10 @@ Verified locally. CI does not exist yet.
 | Build | `npx nx run-many -t build` |
 | End-to-end tests | `npx playwright install --with-deps` once, then `npx nx e2e storefront-e2e` |
 | Format check | `npx nx format:check --all` |
+
+## Pre-commit hook
+
+`npm ci` installs a hook (`.githooks/pre-commit`) that checks formatting and fails on lint warnings in the changed projects. CI reports lint warnings but does not fail on them.
 
 ## License
 

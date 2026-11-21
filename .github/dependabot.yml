@@ -1,0 +1,39 @@
+version: 2
+
+# Every dependency is pinned exactly, so security and bug-fix updates only
+# arrive through these pull requests.
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 5
+    commit-message:
+      prefix: chore
+    groups:
+      # Nx packages must move together.
+      nx:
+        patterns: ['nx', '@nx/*']
+      minor-and-patch:
+        update-types: ['minor', 'patch']
+    ignore:
+      # TypeScript stays on 6.0.x until Angular and typescript-eslint support 7 (ADR-0001).
+      - dependency-name: typescript
+        update-types:
+          ['version-update:semver-minor', 'version-update:semver-major']
+      # eslint-plugin-react, jsx-a11y and import do not accept ESLint 10 yet.
+      - dependency-name: eslint
+        update-types: ['version-update:semver-major']
+      # @nx/next 24 accepts Next >=14 <17.
+      - dependency-name: next
+        update-types: ['version-update:semver-major']
+      # Stay on the Node 24 LTS typings.
+      - dependency-name: '@types/node'
+        update-types: ['version-update:semver-major']
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+    commit-message:
+      prefix: chore

@@ -2,7 +2,9 @@
   "name": "@adorable-menagerie/source",
   "version": "0.0.0",
   "license": "UNLICENSED",
-  "scripts": {},
+  "scripts": {
+    "prepare": "node -e \"try{require('child_process').execSync('git config core.hooksPath .githooks',{stdio:'ignore'})}catch{}\""
+  },
   "private": true,
   "devDependencies": {
     "@nx/devkit": "24.0.3",
