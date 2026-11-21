@@ -1,0 +1,37 @@
+{
+  "name": "storefront",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/storefront/src",
+  "projectType": "application",
+  "tags": [],
+  "// targets": "to see all targets run: nx show project storefront --web",
+  "targets": {
+    "typecheck": {
+      "executor": "nx:run-commands",
+      "cache": true,
+      "inputs": [
+        "default",
+        "^production",
+        {
+          "externalDependencies": [
+            "typescript",
+            "next",
+            "@types/react",
+            "@types/react-dom",
+            "@types/node",
+            "vitest"
+          ]
+        }
+      ],
+      "options": {
+        "cwd": "{projectRoot}",
+        "commands": [
+          "next typegen",
+          "tsc -p tsconfig.json --noEmit --incremental false",
+          "tsc -p tsconfig.spec.json --noEmit --incremental false"
+        ],
+        "parallel": false
+      }
+    }
+  }
+}
