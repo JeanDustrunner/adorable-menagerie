@@ -3,6 +3,7 @@
 /coverage
 /.nx/cache
 /.nx/workspace-data
+/.vscode/settings.json
 package-lock.json
 # Docs are hand-formatted; Prettier would re-pad Markdown tables
 *.md

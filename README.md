@@ -4,7 +4,7 @@ A storefront and administration platform for a fictional crocheting and knitting
 
 ## Current state
 
-Repository foundation (phase 0): an Nx monorepo with a placeholder Next.js storefront. A GitHub Actions workflow and a pre-commit hook exist; deployment is not set up yet.
+Repository foundation (phase 0): an Nx monorepo with a placeholder Next.js storefront. CI (GitHub Actions) and a pre-commit hook are in place. The placeholder page is deployed on Vercel: https://adorable-menagerie.vercel.app.
 
 ## Requirements
 
@@ -12,7 +12,7 @@ Repository foundation (phase 0): an Nx monorepo with a placeholder Next.js store
 
 ## Commands
 
-Verified locally. The GitHub Actions workflow has not run on GitHub yet.
+Verified locally and by the GitHub Actions workflow.
 
 | Task | Command |
 |---|---|
