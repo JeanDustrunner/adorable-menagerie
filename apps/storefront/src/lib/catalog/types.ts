@@ -5,9 +5,7 @@ export type Visibility = 'public' | 'hidden';
 export type Availability = 'available' | 'unavailable';
 export type Craft = 'szydelko' | 'druty';
 export type Difficulty =
-  | 'poczatkujacy'
-  | 'sredniozaawansowany'
-  | 'zaawansowany';
+  'poczatkujacy' | 'sredniozaawansowany' | 'zaawansowany';
 
 export interface Photo {
   /** File name inside public/photos, e.g. "konik-karmel-1.jpg". */
