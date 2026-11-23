@@ -1,0 +1,41 @@
+.footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 1.5rem 2rem;
+  padding: 3rem var(--gutter);
+  color: var(--color-on-inverse);
+  background: var(--color-surface-inverse);
+}
+
+.footer p {
+  margin: 0;
+}
+
+/* The default focus colour is too dark to see on this surface. */
+.footer :focus-visible {
+  outline-color: var(--color-focus-on-inverse);
+}
+
+.footer .brand {
+  margin-bottom: 0.5rem;
+  font-family: var(--font-heading-stack);
+  font-size: 1.75rem;
+  color: var(--color-accent-on-inverse);
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
+  font-weight: 600;
+}

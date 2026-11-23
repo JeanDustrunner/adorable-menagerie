@@ -1,0 +1,20 @@
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem 1rem;
+  padding: 0.75rem var(--gutter);
+  background: var(--color-background);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.brand {
+  font-family: var(--font-heading-stack);
+  font-size: 1.75rem;
+  line-height: 1.2;
+  text-decoration: none;
+}

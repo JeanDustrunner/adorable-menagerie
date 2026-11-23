@@ -1,0 +1,58 @@
+/*
+ * Design tokens (ADR-0005). Two layers, both declared on <html>:
+ *   1. Palette: raw colour scales. A theme changes only these.
+ *   2. Roles: what a colour is for. Components use roles only, never palette names or
+ *      raw colours, so a palette swap restyles everything.
+ * Roles reference the palette on the same element, so a [data-theme] override of the
+ * palette re-resolves every role.
+ */
+
+html {
+  /* Palette: Pracownia (default) */
+  --brand-50: #fff6ea;
+  --brand-100: #fcead6;
+  --brand-200: #f8d5ad;
+  --brand-300: #f3c08a;
+  --brand-400: #edae70;
+  --brand-500: #c98544;
+  --brand-600: #9a5a22;
+  --brand-700: #6b3a14;
+  --brand-800: #4a2810;
+  --brand-900: #1c1004;
+  --accent-a: #f6c6b6;
+  --accent-b: #c9cdf2;
+
+  /* Roles */
+  --color-background: var(--brand-100);
+  --color-text: var(--brand-900);
+  --color-text-muted: var(--brand-800);
+  --color-card: var(--brand-50);
+  --color-border: var(--brand-200);
+  --color-primary: var(--brand-700);
+  --color-primary-hover: var(--brand-800);
+  --color-on-primary: var(--brand-50);
+  --color-surface-inverse: var(--brand-900);
+  --color-surface-strong: var(--brand-700);
+  --color-on-inverse: var(--brand-100);
+  --color-accent-on-inverse: var(--brand-400);
+  --color-decoration: var(--brand-500);
+  --color-focus: var(--brand-700);
+  --color-focus-on-inverse: var(--brand-300);
+  --color-tint-1: var(--brand-300);
+  --color-tint-2: var(--accent-a);
+  --color-tint-3: var(--accent-b);
+
+  /* Shape and spacing */
+  --radius: 12px;
+  --gutter: 3rem;
+
+  /* Type: the font variables are set by next/font in the root layout. */
+  --font-heading-stack: var(--font-heading), Georgia, serif;
+  --font-body-stack: var(--font-body), system-ui, sans-serif;
+}
+
+@media (max-width: 767px) {
+  html {
+    --gutter: 1rem;
+  }
+}
