@@ -1,0 +1,11 @@
+.notice {
+  padding: 0.5rem 1rem;
+  font-size: 0.8125rem;
+  text-align: center;
+  color: var(--color-on-inverse);
+  background: var(--color-surface-inverse);
+}
+
+.notice p {
+  margin: 0;
+}

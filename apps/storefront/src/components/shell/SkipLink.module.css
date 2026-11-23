@@ -1,0 +1,20 @@
+.skipLink {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  padding: 0.75rem 1rem;
+  font-weight: 600;
+  color: var(--color-text);
+  text-decoration: none;
+  background: var(--color-card);
+  border-bottom: 1px solid var(--color-border);
+  border-radius: 0 0 var(--radius) 0;
+  transform: translateY(-110%);
+}
+
+.skipLink:focus-visible {
+  /* The ring sits inside the chip so it never lands on the dark notice behind it. */
+  outline-offset: -4px;
+  transform: translateY(0);
+}
