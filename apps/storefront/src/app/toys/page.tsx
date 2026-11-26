@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { ItemGrid } from '../../components/catalog/ItemGrid';
 import { catalog } from '../../lib/catalog';
 import { isSectionReady } from '../../lib/navigation';
-import styles from './page.module.css';
+import styles from '../listing.module.css';
 
 export const metadata: Metadata = {
   title: 'Przytulanki',

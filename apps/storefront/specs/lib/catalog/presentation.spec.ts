@@ -2,11 +2,13 @@ import {
   itemDetails,
   itemSummary,
   paragraphs,
+  patternDetails,
+  patternSummary,
   photoSrc,
   reproducibilityNote,
 } from '../../../src/lib/catalog/presentation';
 import { formatPrice } from '../../../src/lib/format/price';
-import { item, photo } from './builders';
+import { item, pattern, photo } from './builders';
 
 describe('photoSrc', () => {
   it('points at the exported copy in public/photos', () => {
@@ -101,6 +103,59 @@ describe('paragraphs', () => {
     expect(paragraphs('Pierwszy.\n\n  Drugi.  \n\n\n')).toEqual([
       'Pierwszy.',
       'Drugi.',
+    ]);
+  });
+});
+
+describe('patternSummary', () => {
+  it('names the craft and the difficulty (spec 6.4)', () => {
+    expect(
+      patternSummary(
+        pattern({ craft: 'szydelko', difficulty: 'poczatkujacy' }),
+      ),
+    ).toBe('Szydełko, dla początkujących');
+    expect(
+      patternSummary(
+        pattern({ craft: 'druty', difficulty: 'sredniozaawansowany' }),
+      ),
+    ).toBe('Druty, średnio zaawansowany');
+    expect(
+      patternSummary(pattern({ craft: 'druty', difficulty: 'zaawansowany' })),
+    ).toBe('Druty, zaawansowany');
+  });
+});
+
+describe('patternDetails', () => {
+  it('always lists craft and difficulty, which are required', () => {
+    expect(
+      patternDetails(pattern({ craft: 'druty', difficulty: 'zaawansowany' })),
+    ).toEqual([
+      { term: 'Technika', value: 'druty' },
+      { term: 'Poziom trudności', value: 'zaawansowany' },
+    ]);
+  });
+
+  it('adds the optional fields that exist, in a fixed order', () => {
+    expect(
+      patternDetails(
+        pattern({
+          craft: 'szydelko',
+          difficulty: 'poczatkujacy',
+          yarnAndTools: 'Bawełna 8/4; szydełko 2,5 mm',
+          finishedSize: 'ok. 32 cm wysokości',
+          format: 'PDF',
+          pageCount: 16,
+          makeTimeHours: 18,
+        }),
+      ),
+    ).toEqual([
+      { term: 'Technika', value: 'szydełko' },
+      { term: 'Poziom trudności', value: 'dla początkujących' },
+      { term: 'Włóczka i narzędzia', value: 'Bawełna 8/4; szydełko 2,5 mm' },
+      { term: 'Gotowy rozmiar', value: 'ok. 32 cm wysokości' },
+      { term: 'Format', value: 'PDF' },
+      { term: 'Liczba stron', value: '16' },
+      { term: 'Czas wykonania', value: 'ok. 18 godz.' },
     ]);
   });
 });

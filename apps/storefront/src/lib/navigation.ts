@@ -11,7 +11,7 @@ export interface NavItem {
 /** Main navigation in the order the spec fixes: Polish labels, English paths. */
 export const navItems: readonly NavItem[] = [
   { label: 'Przytulanki', href: '/toys', ready: true },
-  { label: 'Wzory', href: '/patterns', ready: false },
+  { label: 'Wzory', href: '/patterns', ready: true },
   { label: 'Galeria prac', href: '/gallery', ready: false },
   { label: 'Blog', href: '/blog', ready: false },
   { label: 'O nas', href: '/about', ready: false },

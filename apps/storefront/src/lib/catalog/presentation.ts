@@ -1,5 +1,12 @@
 import { formatPrice } from '../format/price';
-import type { Craft, Dimensions, Item, Photo } from './types';
+import type {
+  Craft,
+  Difficulty,
+  Dimensions,
+  Item,
+  Pattern,
+  Photo,
+} from './types';
 
 // How catalog data is worded on the pages (spec 4.1 and 6.3). Pure functions, so
 // the wording is tested once and every page says the same thing.
@@ -14,10 +21,24 @@ const techniqueAdverb: Readonly<Record<Craft, string>> = {
   druty: 'Na drutach',
 };
 
-const techniqueName: Readonly<Record<Craft, string>> = {
+const craftName: Readonly<Record<Craft, string>> = {
   szydelko: 'szydełko',
   druty: 'druty',
 };
+
+const difficultyName: Readonly<Record<Difficulty, string>> = {
+  poczatkujacy: 'dla początkujących',
+  sredniozaawansowany: 'średnio zaawansowany',
+  zaawansowany: 'zaawansowany',
+};
+
+function capitalise(text: string): string {
+  return text.charAt(0).toUpperCase() + text.slice(1);
+}
+
+function makeTime(hours: number | undefined): string | undefined {
+  return hours === undefined ? undefined : `ok. ${hours} godz.`;
+}
 
 function present(parts: readonly (string | undefined)[]): string[] {
   return parts.filter((part): part is string => part !== undefined);
@@ -59,13 +80,8 @@ export function itemDetails(item: Item): readonly Detail[] {
     detail('Wymiary', item.dimensionsCm && formatDimensions(item.dimensionsCm)),
     detail('Materiały', item.materials),
     detail('Włóczka', item.yarn),
-    detail('Technika', item.technique && techniqueName[item.technique]),
-    detail(
-      'Czas wykonania',
-      item.makeTimeHours === undefined
-        ? undefined
-        : `ok. ${item.makeTimeHours} godz.`,
-    ),
+    detail('Technika', item.technique && craftName[item.technique]),
+    detail('Czas wykonania', makeTime(item.makeTimeHours)),
     detail('Pielęgnacja', item.care),
     detail(
       'Ostatnia cena',
@@ -73,6 +89,25 @@ export function itemDetails(item: Item): readonly Detail[] {
         ? formatPrice(item.priceGrosze)
         : undefined,
     ),
+  ];
+  return candidates.filter((d): d is Detail => d !== undefined);
+}
+
+/** Card line for patterns: craft and difficulty instead of size (spec 6.4). */
+export function patternSummary(pattern: Pattern): string {
+  return `${capitalise(craftName[pattern.craft])}, ${difficultyName[pattern.difficulty]}`;
+}
+
+/** The attribute list of a pattern page; required fields first, then what exists. */
+export function patternDetails(pattern: Pattern): readonly Detail[] {
+  const candidates = [
+    detail('Technika', craftName[pattern.craft]),
+    detail('Poziom trudności', difficultyName[pattern.difficulty]),
+    detail('Włóczka i narzędzia', pattern.yarnAndTools),
+    detail('Gotowy rozmiar', pattern.finishedSize),
+    detail('Format', pattern.format),
+    detail('Liczba stron', pattern.pageCount?.toString()),
+    detail('Czas wykonania', makeTime(pattern.makeTimeHours)),
   ];
   return candidates.filter((d): d is Detail => d !== undefined);
 }

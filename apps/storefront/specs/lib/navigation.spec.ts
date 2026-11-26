@@ -93,4 +93,8 @@ describe('isSectionReady', () => {
   it('opens the catalog section for real (T1.3)', () => {
     expect(isSectionReady('/toys/konik-karmel')).toBe(true);
   });
+
+  it('opens the patterns section for real (T1.4)', () => {
+    expect(isSectionReady('/patterns/wzor-smok-szafir')).toBe(true);
+  });
 });
