@@ -10,7 +10,7 @@ export interface NavItem {
 
 /** Main navigation in the order the spec fixes: Polish labels, English paths. */
 export const navItems: readonly NavItem[] = [
-  { label: 'Przytulanki', href: '/toys', ready: false },
+  { label: 'Przytulanki', href: '/toys', ready: true },
   { label: 'Wzory', href: '/patterns', ready: false },
   { label: 'Galeria prac', href: '/gallery', ready: false },
   { label: 'Blog', href: '/blog', ready: false },
@@ -33,4 +33,15 @@ export function isActive(pathname: string, href: string): boolean {
   const current = withoutTrailingSlash(pathname);
   if (href === '/') return current === '/';
   return current === href || current.startsWith(`${href}/`);
+}
+
+/**
+ * True when `path` lies in a section whose pages exist. Pages use it to decide
+ * whether a cross-link (to the gallery, a pattern, a post) may be a real link yet.
+ */
+export function isSectionReady(
+  path: string,
+  items: readonly NavItem[] = navItems,
+): boolean {
+  return items.some((item) => item.ready && isActive(path, item.href));
 }

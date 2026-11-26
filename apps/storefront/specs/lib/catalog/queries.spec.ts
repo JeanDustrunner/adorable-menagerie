@@ -292,3 +292,47 @@ describe('the default catalog (fixtures)', () => {
     expect(gallerySlugs).toContain('lama-rosa');
   });
 });
+
+describe('getPatternForItem', () => {
+  const data = {
+    items: [item({ slug: 'konik' }), item({ slug: 'lama' })],
+    patterns: [
+      pattern({ slug: 'wzor-konik', madeItemSlug: 'konik' }),
+      pattern({
+        slug: 'wzor-lama-ukryty',
+        madeItemSlug: 'lama',
+        visibility: 'hidden',
+      }),
+    ],
+    posts: [],
+  };
+  const repo = createCatalog(data);
+
+  it('returns the public pattern made into the item', async () => {
+    expect((await repo.getPatternForItem('konik'))?.slug).toBe('wzor-konik');
+  });
+
+  it('ignores hidden patterns', async () => {
+    expect(await repo.getPatternForItem('lama')).toBeUndefined();
+  });
+
+  it('returns nothing for an item without a pattern', async () => {
+    expect(await repo.getPatternForItem('nieznany')).toBeUndefined();
+  });
+
+  it('prefers the newest pattern when several were made into the same item', async () => {
+    const many = createCatalog({
+      items: [item({ slug: 'konik' })],
+      patterns: [
+        pattern({
+          slug: 'stary',
+          madeItemSlug: 'konik',
+          addedOn: '2026-01-01',
+        }),
+        pattern({ slug: 'nowy', madeItemSlug: 'konik', addedOn: '2026-05-01' }),
+      ],
+      posts: [],
+    });
+    expect((await many.getPatternForItem('konik'))?.slug).toBe('nowy');
+  });
+});
