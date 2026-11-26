@@ -148,3 +148,43 @@ test.describe('catalog on a phone', () => {
     expect((second?.x ?? 0) > (first?.x ?? 0)).toBe(true);
   });
 });
+
+// Owner feedback 2026-11-26: on large screens the page must not sprawl, and the
+// cover photo plus the thumbnail row must be visible without scrolling.
+for (const viewport of [
+  { width: 1366, height: 768 },
+  { width: 1920, height: 1080 },
+]) {
+  test.describe(`item detail at ${viewport.width}x${viewport.height}`, () => {
+    test.use({ viewport });
+
+    test('shows the cover and every thumbnail without scrolling', async ({
+      page,
+    }) => {
+      await page.goto('/toys/smok-szafir');
+
+      const images = page.getByRole('main').getByRole('img');
+      await expect(images).toHaveCount(4);
+      for (const image of await images.all()) {
+        const box = await image.boundingBox();
+        expect(box).not.toBeNull();
+        expect((box?.y ?? 0) + (box?.height ?? 0)).toBeLessThanOrEqual(
+          viewport.height,
+        );
+      }
+    });
+
+    test('keeps the content within the site width, centred', async ({
+      page,
+    }) => {
+      await page.goto('/toys/smok-szafir');
+
+      const contentMax = 72 * 16;
+      const breadcrumb = await page
+        .getByRole('navigation', { name: 'Okruszki' })
+        .boundingBox();
+      const expectedLeft = Math.max(48, (viewport.width - contentMax) / 2);
+      expect(Math.abs((breadcrumb?.x ?? 0) - expectedLeft)).toBeLessThan(2);
+    });
+  });
+}

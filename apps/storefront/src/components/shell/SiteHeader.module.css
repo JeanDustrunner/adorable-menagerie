@@ -7,14 +7,14 @@
   align-items: center;
   justify-content: space-between;
   gap: 0.5rem 1rem;
-  padding: 0.75rem var(--gutter);
+  padding: 0.75rem var(--inline-padding);
   background: var(--color-background);
   border-bottom: 1px solid var(--color-border);
 }
 
 .brand {
   font-family: var(--font-heading-stack);
-  font-size: 1.75rem;
+  font-size: 1.5rem;
   line-height: 1.2;
   text-decoration: none;
 }

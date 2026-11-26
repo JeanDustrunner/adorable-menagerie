@@ -38,6 +38,7 @@ describe('the demo fixtures', () => {
     expect(has((i) => i.featured === true)).toBe(true);
     expect(has((i) => i.dimensionsCm === undefined)).toBe(true);
 
+    expect(patterns.some((p) => p.visibility === 'hidden')).toBe(true);
     expect(new Set(patterns.map((p) => p.craft))).toEqual(
       new Set(['szydelko', 'druty']),
     );

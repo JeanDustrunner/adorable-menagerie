@@ -45,6 +45,14 @@ html {
   /* Shape and spacing */
   --radius: 12px;
   --gutter: 3rem;
+  /* Widest the content gets; wider screens get wider margins instead. */
+  --content-max: 72rem;
+  /*
+   * Side padding that keeps content inside --content-max while backgrounds stay
+   * full width. The % resolves where the variable is used (the element's
+   * containing block), so use it only on full-width elements.
+   */
+  --inline-padding: max(var(--gutter), calc((100% - var(--content-max)) / 2));
 
   /* Type: the font variables are set by next/font in the root layout. */
   --font-heading-stack: var(--font-heading), Georgia, serif;

@@ -111,4 +111,25 @@ export const patterns: readonly Pattern[] = [
     pageCount: 6,
     makeTimeHours: 8,
   },
+  {
+    // Synthetic and hidden: exists only so tests prove hidden patterns never leak.
+    slug: 'wzor-sowa-szkic',
+    name: 'Wzór: Sowa Ola (szkic)',
+    description: 'Szkic wzoru w przygotowaniu, jeszcze niewidoczny w sklepie.',
+    priceGrosze: 2500,
+    visibility: 'hidden',
+    photos: [
+      photo(
+        'konik-karmel',
+        3,
+        1377,
+        1600,
+        'Zdjęcie zastępcze szkicu wzoru, konik w pudełku',
+      ),
+    ],
+    tags: [],
+    addedOn: '2026-11-12',
+    craft: 'szydelko',
+    difficulty: 'poczatkujacy',
+  },
 ];
