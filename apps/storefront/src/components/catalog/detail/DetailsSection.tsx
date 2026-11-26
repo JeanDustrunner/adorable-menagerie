@@ -13,7 +13,10 @@ interface DetailsSectionProps {
 export function DetailsSection({ details, tags, note }: DetailsSectionProps) {
   const titleId = useId();
   return (
-    <section aria-labelledby={titleId} className={styles.section}>
+    <section
+      aria-labelledby={titleId}
+      className={`${styles.section} ${styles.panel}`}
+    >
       <h2 id={titleId} className={styles.sectionTitle}>
         Szczegóły
       </h2>
