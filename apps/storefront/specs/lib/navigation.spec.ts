@@ -1,4 +1,9 @@
-import { isActive, navItems, visibleNavItems } from '../../src/lib/navigation';
+import {
+  isActive,
+  isSectionReady,
+  navItems,
+  visibleNavItems,
+} from '../../src/lib/navigation';
 import type { NavItem } from '../../src/lib/navigation';
 
 describe('navItems', () => {
@@ -63,5 +68,29 @@ describe('isActive', () => {
   it('treats the home path as active only on the home page', () => {
     expect(isActive('/', '/')).toBe(true);
     expect(isActive('/toys', '/')).toBe(false);
+  });
+});
+
+describe('isSectionReady', () => {
+  const items: readonly NavItem[] = [
+    { label: 'Przytulanki', href: '/toys', ready: true },
+    { label: 'Blog', href: '/blog', ready: false },
+  ];
+
+  it('is true for a ready section and every page below it', () => {
+    expect(isSectionReady('/toys', items)).toBe(true);
+    expect(isSectionReady('/toys/konik-karmel', items)).toBe(true);
+  });
+
+  it('is false for a section whose pages do not exist yet', () => {
+    expect(isSectionReady('/blog/smoki', items)).toBe(false);
+  });
+
+  it('is false for a path outside every section', () => {
+    expect(isSectionReady('/toysy', items)).toBe(false);
+  });
+
+  it('opens the catalog section for real (T1.3)', () => {
+    expect(isSectionReady('/toys/konik-karmel')).toBe(true);
   });
 });

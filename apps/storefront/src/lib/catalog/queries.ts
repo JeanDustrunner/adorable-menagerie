@@ -32,6 +32,8 @@ export interface CatalogRepository {
   getPublicPattern(slug: string): Promise<Pattern | undefined>;
   /** Public patterns in the order of `slugs`; hidden and unknown slugs are skipped. */
   getPublicPatterns(slugs: readonly string[]): Promise<readonly Pattern[]>;
+  /** The newest public pattern whose `madeItemSlug` is `itemSlug`, if any. */
+  getPatternForItem(itemSlug: string): Promise<Pattern | undefined>;
 
   listPosts(): Promise<readonly Post[]>;
   getPost(slug: string): Promise<Post | undefined>;
@@ -124,6 +126,13 @@ export function createCatalog(data: CatalogData): CatalogRepository {
 
     async getPublicPatterns(slugs) {
       return pickInOrder(publicPatterns, slugs);
+    },
+
+    async getPatternForItem(itemSlug) {
+      return newestFirst(
+        publicPatterns.filter((p) => p.madeItemSlug === itemSlug),
+        byPatternDate,
+      )[0];
     },
 
     async listPosts() {

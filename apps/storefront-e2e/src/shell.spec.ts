@@ -73,3 +73,42 @@ test.describe('site shell', () => {
     ).toBeVisible();
   });
 });
+
+test.describe('mobile menu', () => {
+  test.use({ viewport: { width: 375, height: 800 } });
+
+  test('opens, reaches the catalog, and closes after navigating', async ({
+    page,
+  }) => {
+    await page.goto('/');
+
+    const nav = page.getByRole('navigation', { name: 'Główna nawigacja' });
+    const button = nav.getByRole('button', { name: 'Menu' });
+    const link = nav.getByRole('link', { name: 'Przytulanki' });
+
+    await expect(button).toHaveAttribute('aria-expanded', 'false');
+    await expect(link).toBeHidden();
+
+    await button.click();
+    await expect(button).toHaveAttribute('aria-expanded', 'true');
+    await expect(link).toBeVisible();
+
+    await link.click();
+    await expect(page).toHaveURL(/\/toys$/);
+    await expect(button).toHaveAttribute('aria-expanded', 'false');
+    await expect(link).toBeHidden();
+  });
+
+  test('closes on Escape and returns focus to the button', async ({ page }) => {
+    await page.goto('/');
+
+    const nav = page.getByRole('navigation', { name: 'Główna nawigacja' });
+    const button = nav.getByRole('button', { name: 'Menu' });
+    await button.click();
+    await nav.getByRole('link', { name: 'Przytulanki' }).focus();
+
+    await page.keyboard.press('Escape');
+    await expect(button).toHaveAttribute('aria-expanded', 'false');
+    await expect(button).toBeFocused();
+  });
+});
