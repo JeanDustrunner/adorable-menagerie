@@ -12,7 +12,7 @@ export interface NavItem {
 export const navItems: readonly NavItem[] = [
   { label: 'Przytulanki', href: '/toys', ready: true },
   { label: 'Wzory', href: '/patterns', ready: true },
-  { label: 'Galeria prac', href: '/gallery', ready: false },
+  { label: 'Galeria prac', href: '/gallery', ready: true },
   { label: 'Blog', href: '/blog', ready: false },
   { label: 'O nas', href: '/about', ready: false },
   { label: 'Kontakt', href: '/contact', ready: false },

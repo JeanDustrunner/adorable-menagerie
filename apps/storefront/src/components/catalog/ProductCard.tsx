@@ -8,14 +8,20 @@ interface ProductCardProps {
   readonly href: string;
   readonly name: string;
   readonly cover: Photo;
-  readonly price: string;
+  /** Left out on gallery tiles: sold items show no price there (OD-8). */
+  readonly price?: string;
   /** Line under the name; left out when there is nothing to say. */
   readonly summary?: string;
   /** Short text next to the price, such as the availability label. */
   readonly note?: string;
   /** Load the photo at once: for cards in the first row, the likely LCP. */
   readonly eager?: boolean;
+  /** Smaller tile for the six-column gallery grid. */
+  readonly compact?: boolean;
 }
+
+const CARD_SIZES = '(max-width: 767px) 50vw, (max-width: 1023px) 33vw, 25vw';
+const TILE_SIZES = '(max-width: 1023px) 33vw, 12rem';
 
 /**
  * Card for an item or a pattern. Only the name is a link, so its accessible name
@@ -30,16 +36,18 @@ export function ProductCard({
   summary,
   note,
   eager = false,
+  compact = false,
 }: ProductCardProps) {
+  const className = compact ? `${styles.card} ${styles.compact}` : styles.card;
   return (
-    <article className={styles.card}>
+    <article className={className}>
       <div className={styles.media}>
         <Image
           src={photoSrc(cover)}
           alt={cover.alt}
           fill
           loading={eager ? 'eager' : 'lazy'}
-          sizes="(max-width: 767px) 50vw, (max-width: 1023px) 33vw, 25vw"
+          sizes={compact ? TILE_SIZES : CARD_SIZES}
           className={styles.photo}
         />
       </div>
@@ -50,10 +58,12 @@ export function ProductCard({
           </Link>
         </h2>
         {summary && <p className={styles.summary}>{summary}</p>}
-        <p className={styles.meta}>
-          <span className={styles.price}>{price}</span>
-          {note && <span className={styles.label}>{note}</span>}
-        </p>
+        {(price || note) && (
+          <p className={styles.meta}>
+            {price && <span className={styles.price}>{price}</span>}
+            {note && <span className={styles.label}>{note}</span>}
+          </p>
+        )}
       </div>
     </article>
   );
