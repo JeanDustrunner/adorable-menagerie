@@ -6,7 +6,7 @@ describe('HomePage placeholder', () => {
     render(<HomePage />);
 
     expect(
-      screen.getByRole('heading', { level: 1, name: 'Adorable Menagerie' }),
+      screen.getByRole('heading', { level: 1, name: 'Urocza Menażeria' }),
     ).toBeTruthy();
   });
 

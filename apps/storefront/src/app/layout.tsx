@@ -25,10 +25,12 @@ const bodyFont = DM_Sans({
 export const metadata: Metadata = siteMetadata;
 
 export default function RootLayout({ children }: { children: ReactNode }) {
+  // data-theme names the active palette; a future [data-theme] block in tokens.css
+  // can override the palette layer for another theme (ADR-0005).
   return (
     <html
       lang={siteLanguage}
-      data-theme="pracownia"
+      data-theme="menazeria"
       className={`${headingFont.variable} ${bodyFont.variable}`}
     >
       <body>

@@ -11,7 +11,7 @@ test.describe('catalog /toys', () => {
       .click();
 
     await expect(page).toHaveURL(/\/toys$/);
-    await expect(page).toHaveTitle('Przytulanki | Adorable Menagerie');
+    await expect(page).toHaveTitle('Przytulanki | Urocza Menażeria');
     await expect(
       page.getByRole('heading', { level: 1, name: 'Przytulanki' }),
     ).toBeVisible();
@@ -84,7 +84,7 @@ test.describe('item detail /toys/[slug]', () => {
   }) => {
     await page.goto('/toys/smok-szafir');
 
-    await expect(page).toHaveTitle('Smok Szafir | Adorable Menagerie');
+    await expect(page).toHaveTitle('Smok Szafir | Urocza Menażeria');
     const main = page.getByRole('main');
     await expect(main.getByRole('img')).toHaveCount(4);
     await expect(main).toContainText('Dostępny');

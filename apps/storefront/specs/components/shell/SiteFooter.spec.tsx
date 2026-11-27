@@ -11,7 +11,7 @@ describe('SiteFooter', () => {
   it('is the content-info landmark with the brand and the demonstration statement', () => {
     render(<SiteFooter items={items} />);
     expect(screen.getByRole('contentinfo')).toBeTruthy();
-    expect(screen.getByText('Adorable Menagerie')).toBeTruthy();
+    expect(screen.getByText('Urocza Menażeria')).toBeTruthy();
     expect(
       screen.getByText(
         'Projekt demonstracyjny. Wszystkie produkty, ceny i dane są fikcyjne.',

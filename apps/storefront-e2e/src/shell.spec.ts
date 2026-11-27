@@ -1,4 +1,5 @@
 import { test, expect } from '@playwright/test';
+import type { Page } from '@playwright/test';
 
 test.describe('site shell', () => {
   test('is Polish and kept out of search engines until go-live', async ({
@@ -57,7 +58,7 @@ test.describe('site shell', () => {
     await page.goto('/');
 
     await expect(
-      page.getByRole('link', { name: 'Adorable Menagerie' }),
+      page.getByRole('link', { name: 'Urocza Menażeria' }),
     ).toHaveAttribute('href', '/');
   });
 
@@ -110,5 +111,46 @@ test.describe('mobile menu', () => {
     await page.keyboard.press('Escape');
     await expect(button).toHaveAttribute('aria-expanded', 'false');
     await expect(button).toBeFocused();
+  });
+});
+
+test.describe('side decoration', () => {
+  function mainStyle(
+    page: Page,
+    property: 'backgroundImage' | 'backgroundSize',
+  ) {
+    return page.evaluate(
+      (prop) =>
+        getComputedStyle(document.querySelector('main') as Element)[prop],
+      property,
+    );
+  }
+
+  for (const width of [1536, 1920]) {
+    test(`frames the content with illustrations at ${width} px, never under it`, async ({
+      page,
+    }) => {
+      await page.setViewportSize({ width, height: 1000 });
+      await page.goto('/toys');
+      const image = await mainStyle(page, 'backgroundImage');
+      expect(image).toContain('houses-left.webp');
+      expect(image).toContain('houses-right.webp');
+
+      const strip = parseFloat(await mainStyle(page, 'backgroundSize'));
+      expect(strip).toBeGreaterThan(0);
+      // Both strips sit 1.5rem (24 px) in from the window edges.
+      const box = await page.getByRole('heading', { level: 1 }).boundingBox();
+      const list = await page.getByRole('main').getByRole('list').boundingBox();
+      expect(box?.x ?? 0).toBeGreaterThanOrEqual(24 + strip);
+      expect((list?.x ?? 0) + (list?.width ?? 0)).toBeLessThanOrEqual(
+        width - 24 - strip,
+      );
+    });
+  }
+
+  test('leaves smaller screens plain', async ({ page }) => {
+    await page.setViewportSize({ width: 1366, height: 768 });
+    await page.goto('/toys');
+    expect(await mainStyle(page, 'backgroundImage')).toBe('none');
   });
 });
