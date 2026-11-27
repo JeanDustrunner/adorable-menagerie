@@ -11,7 +11,7 @@ test.describe('patterns /patterns', () => {
       .click();
 
     await expect(page).toHaveURL(/\/patterns$/);
-    await expect(page).toHaveTitle('Wzory | Adorable Menagerie');
+    await expect(page).toHaveTitle('Wzory | Urocza Menażeria');
     await expect(
       page.getByRole('heading', { level: 1, name: 'Wzory' }),
     ).toBeVisible();
@@ -51,7 +51,7 @@ test.describe('pattern detail /patterns/[slug]', () => {
   }) => {
     await page.goto('/patterns/wzor-smok-szafir');
 
-    await expect(page).toHaveTitle('Wzór: Smok Szafir | Adorable Menagerie');
+    await expect(page).toHaveTitle('Wzór: Smok Szafir | Urocza Menażeria');
     const main = page.getByRole('main');
     await expect(main.locator('dt').first()).toHaveText('Technika');
     await expect(

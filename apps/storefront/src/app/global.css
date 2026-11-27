@@ -27,6 +27,31 @@ body {
   background: var(--color-background);
 }
 
+/*
+ * Wide screens: the owner's house illustrations fill the side margins, outside
+ * --content-max. CSS backgrounds are decoration only, so assistive technology
+ * ignores them. They sit on <main>, between header and footer. Below 96rem the margins are too narrow and the page stays plain.
+ */
+@media (min-width: 96rem) {
+  main {
+    --decor-width: min(calc((100vw - var(--content-max)) / 2 - 3rem), 14rem);
+
+    background-image:
+      url('/decor/houses-left.webp'), url('/decor/houses-right.webp');
+    /*
+     * Only between header and footer. `space` draws whole strips only; the
+     * min-height keeps at least one strip (about 36.5rem at full size) whole on
+     * short pages.
+     */
+    min-height: 37rem;
+    background-repeat: no-repeat space;
+    background-position:
+      left 1.5rem top,
+      right 1.5rem top;
+    background-size: var(--decor-width) auto;
+  }
+}
+
 h1,
 h2,
 h3 {

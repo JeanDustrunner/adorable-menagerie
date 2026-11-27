@@ -17,7 +17,7 @@ test.describe('gallery /gallery', () => {
     await nav.getByRole('link', { name: 'Galeria prac' }).click();
 
     await expect(page).toHaveURL(/\/gallery$/);
-    await expect(page).toHaveTitle('Galeria prac | Adorable Menagerie');
+    await expect(page).toHaveTitle('Galeria prac | Urocza Menażeria');
     await expect(
       page.getByRole('heading', { level: 1, name: 'Galeria prac' }),
     ).toBeVisible();

@@ -8,19 +8,23 @@
  */
 
 html {
-  /* Palette: Pracownia (default) */
-  --brand-50: #fff6ea;
-  --brand-100: #fcead6;
-  --brand-200: #f8d5ad;
-  --brand-300: #f3c08a;
-  --brand-400: #edae70;
-  --brand-500: #c98544;
-  --brand-600: #9a5a22;
-  --brand-700: #6b3a14;
-  --brand-800: #4a2810;
-  --brand-900: #1c1004;
-  --accent-a: #f6c6b6;
-  --accent-b: #c9cdf2;
+  /*
+   * Palette: Menażeria (default since 2026-11-27), measured from the owner's
+   * illustrations: cream paper, blush, mustard, plum, dusty teal and the logo's
+   * deep green. The slots keep their old names so the roles below need no change.
+   */
+  --brand-50: #f8f3ef; /* light paper: cards */
+  --brand-100: #ede4dd; /* illustration paper: page background */
+  --brand-200: #dccbc2; /* borders */
+  --brand-300: #e9d1c9; /* blush */
+  --brand-400: #d1ad87; /* mustard */
+  --brand-500: #6f4a5c; /* plum */
+  --brand-600: #3b6362;
+  --brand-700: #2a4d4c; /* logo deep green */
+  --brand-800: #344545;
+  --brand-900: #172828;
+  --accent-a: #e6c9a9; /* light mustard */
+  --accent-b: #a9c3c9; /* light dusty teal */
 
   /* Roles */
   --color-background: var(--brand-100);

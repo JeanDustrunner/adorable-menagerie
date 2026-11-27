@@ -1,6 +1,13 @@
 import type { Metadata } from 'next';
 
-export const siteName = 'Adorable Menagerie';
+/**
+ * Visible brand name of the Polish site. Trial of the localized name agreed with
+ * the owner on 2026-11-27; the project and any English version stay "Adorable
+ * Menagerie". Reverting the trial is a change to this line.
+ */
+export const siteName = 'Urocza Menażeria';
+/** The logo's tagline; English on purpose, so it is marked lang="en". */
+export const siteTagline = 'friends made with love';
 export const siteLanguage = 'pl';
 
 /**

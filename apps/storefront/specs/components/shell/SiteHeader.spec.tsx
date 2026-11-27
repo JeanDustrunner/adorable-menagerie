@@ -12,8 +12,26 @@ describe('SiteHeader', () => {
   it('is the page banner and links the brand name to the home page', () => {
     render(<SiteHeader items={items} />);
     expect(screen.getByRole('banner')).toBeTruthy();
-    const brand = screen.getByRole('link', { name: 'Adorable Menagerie' });
+    const brand = screen.getByRole('link', { name: 'Urocza Menażeria' });
     expect(brand.getAttribute('href')).toBe('/');
+  });
+
+  it('shows the logo as decoration: the visible name labels the link', () => {
+    render(<SiteHeader items={items} />);
+    const banner = screen.getByRole('banner');
+    // alt="" keeps the logo out of the accessibility tree: no img role.
+    expect(screen.queryAllByRole('img')).toHaveLength(0);
+    const logo = banner.querySelector('img');
+    expect(logo?.getAttribute('src')).toContain('logo.webp');
+    expect(logo?.getAttribute('alt')).toBe('');
+    expect(
+      screen.getByRole('link', { name: 'Urocza Menażeria' }).textContent,
+    ).toBe('Urocza Menażeria');
+  });
+
+  it('shows the tagline next to the name', () => {
+    render(<SiteHeader items={items} />);
+    expect(screen.getByText('friends made with love')).toBeTruthy();
   });
 
   it('contains the main navigation', () => {
@@ -26,8 +44,6 @@ describe('SiteHeader', () => {
   it('shows only the brand when no section page exists yet', () => {
     render(<SiteHeader items={[]} />);
     expect(screen.queryByRole('navigation')).toBeNull();
-    expect(
-      screen.getByRole('link', { name: 'Adorable Menagerie' }),
-    ).toBeTruthy();
+    expect(screen.getByRole('link', { name: 'Urocza Menażeria' })).toBeTruthy();
   });
 });
