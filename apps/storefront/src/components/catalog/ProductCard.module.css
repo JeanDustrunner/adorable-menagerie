@@ -100,3 +100,35 @@
   font-size: 0.875rem;
   color: var(--color-text-muted);
 }
+
+/* Gallery tile: square photo, tighter text, so six fit in a row (spec 6.5). */
+.compact .media {
+  aspect-ratio: 1;
+}
+
+.compact .body {
+  gap: 0.125rem;
+  padding: 0.625rem 0.75rem 0.75rem;
+}
+
+.compact .name {
+  font-size: 1rem;
+}
+
+.compact .meta {
+  padding-top: 0.25rem;
+}
+
+@media (max-width: 767px) {
+  .compact .body {
+    padding: 0.5rem 0.5rem 0.625rem;
+  }
+
+  .compact .name {
+    font-size: 0.9375rem;
+  }
+
+  .compact .label {
+    font-size: 0.8125rem;
+  }
+}

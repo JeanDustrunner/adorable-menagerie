@@ -20,6 +20,24 @@
   }
 }
 
+/* Gallery tiles: six per desktop row, three on tablets and phones (spec 6.5). */
+.grid.tiles {
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+@media (max-width: 1023px) {
+  .grid.tiles {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 767px) {
+  .grid.tiles {
+    gap: 0.75rem;
+  }
+}
+
 .empty {
   max-width: 40rem;
   padding: 2rem;

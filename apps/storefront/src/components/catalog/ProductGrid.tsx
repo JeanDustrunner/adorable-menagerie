@@ -1,8 +1,10 @@
 import type { ReactNode } from 'react';
 import styles from './ProductGrid.module.css';
 
-/** Cards in the first desktop row, whose photos are loaded at once. */
-const EAGER_CARDS = 4;
+export type GridLayout = 'cards' | 'tiles';
+
+/** Entries in the first desktop row, whose photos are loaded at once. */
+const FIRST_ROW: Record<GridLayout, number> = { cards: 4, tiles: 6 };
 
 interface ProductGridProps<T extends { readonly slug: string }> {
   readonly entries: readonly T[];
@@ -10,6 +12,8 @@ interface ProductGridProps<T extends { readonly slug: string }> {
   /** Heading shown instead of the grid when there are no entries. */
   readonly emptyTitle: string;
   readonly emptyBody?: ReactNode;
+  /** Four product cards per desktop row, or six compact gallery tiles. */
+  readonly layout?: GridLayout;
 }
 
 /** Grid of product cards in the given order, or an empty state under a heading. */
@@ -18,6 +22,7 @@ export function ProductGrid<T extends { readonly slug: string }>({
   renderCard,
   emptyTitle,
   emptyBody,
+  layout = 'cards',
 }: ProductGridProps<T>) {
   if (entries.length === 0) {
     return (
@@ -29,9 +34,13 @@ export function ProductGrid<T extends { readonly slug: string }>({
   }
 
   return (
-    <ul className={styles.grid}>
+    <ul
+      className={
+        layout === 'tiles' ? `${styles.grid} ${styles.tiles}` : styles.grid
+      }
+    >
       {entries.map((entry, index) => (
-        <li key={entry.slug}>{renderCard(entry, index < EAGER_CARDS)}</li>
+        <li key={entry.slug}>{renderCard(entry, index < FIRST_ROW[layout])}</li>
       ))}
     </ul>
   );
